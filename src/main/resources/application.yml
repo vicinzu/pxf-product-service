@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: pxf-product-service
+
+  jpa:
+    open-in-view: false #disabled due to: https://stackoverflow.com/a/48222934
