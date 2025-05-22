@@ -5,7 +5,7 @@ import java.util.UUID;
 import lombok.Getter;
 
 @Getter
-public class CodeInUseException extends Exception {
+public class CodeInUseException extends RuntimeException {
 
   private final UUID parentId;
   private final Code code;

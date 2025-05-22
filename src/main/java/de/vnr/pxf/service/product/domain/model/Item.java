@@ -12,13 +12,15 @@ public class Item {
 
   private final UUID id;
 
+  private final UUID productId;
+
   private final Code code;
 
   @Setter
   private String title;
 
-  Item(Code code, String title) {
-    this(UUID.randomUUID(), code);
+  Item(UUID productId, Code code, String title) {
+    this(UUID.randomUUID(), productId, code);
     this.title = title;
   }
 }

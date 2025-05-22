@@ -43,8 +43,8 @@ public class Product {
     if (store.exists(this.id, code)) {
       throw new CodeInUseException(this.id, code, "Item with this code already exists for this product.");
     }
-    // Additional business rules can be enforced here
-    return new Item(code, title);
+
+    return new Item(this.id, code, title);
   }
 
   public Set<Item> getItems() {
@@ -54,13 +54,5 @@ public class Product {
   public void setItems(Collection<Item> items) {
     this.items.clear();
     this.items.addAll(items);
-  }
-
-  public void addItem(Item item) {
-    items.add(item);
-  }
-
-  public void removeItem(Item item) {
-    items.remove(item);
   }
 }

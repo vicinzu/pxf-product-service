@@ -3,7 +3,9 @@ package de.vnr.pxf.service.product.domain.model;
 import de.vnr.pxf.service.base.Code;
 import de.vnr.pxf.service.base.MoneyAmount;
 import de.vnr.pxf.service.product.domain.exception.CodeInUseException;
+import de.vnr.pxf.service.product.domain.exception.ReferenceNotExistsException;
 import de.vnr.pxf.service.product.domain.store.OfferStore;
+import de.vnr.pxf.service.product.domain.store.ProductStore;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -18,19 +20,22 @@ public class Offer {
   private final Code code;
 
   @Getter
-  private final Product product;
+  private final UUID productId;
 
   @Getter
   private final MoneyAmount price;
 
-  public Offer(OfferStore offerStore, Code code, Product product, MoneyAmount price) throws CodeInUseException {
+  public Offer(OfferStore offerStore, ProductStore productStore, Code code, UUID productId, MoneyAmount price)
+      throws CodeInUseException {
     if (offerStore.exists(code)) {
       throw new CodeInUseException(null, code, "Offer with this code already exists.");
+    } else if (!productStore.exists(productId)) {
+      throw new ReferenceNotExistsException(productId, "Product does not exist.");
     }
 
     this.id = UUID.randomUUID();
     this.code = code;
-    this.product = product;
+    this.productId = productId;
     this.price = price;
   }
 }

@@ -1,12 +1,15 @@
 package de.vnr.pxf.service.product.application.port.resource;
 
 import de.vnr.pxf.service.product.domain.model.Product;
-import de.vnr.pxf.service.product.domain.store.ItemStore;
 import de.vnr.pxf.service.product.domain.store.ProductStore;
+import java.util.Optional;
+import java.util.UUID;
 
-public interface ProductPort extends ProductStore, ItemStore {
+public interface ProductPort extends ProductStore {
 
-  void create(Product product);
+  Optional<Product> loadById(UUID id);
 
-  void update(Product product);
+  void insert(Product product);
+
+  void modify(Product product);
 }
