@@ -1,5 +1,6 @@
 package de.vnr.pxf.service.base;
 
+import jakarta.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Optional;
 import lombok.Value;
@@ -18,6 +19,7 @@ public class Code implements Serializable {
     return new Code(code);
   }
 
+  @NotBlank
   String value;
 
   private Code(String value) {

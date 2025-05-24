@@ -20,7 +20,7 @@
 
     <!-- plugins -->
     <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
-    <spotbugs-maven-plugin.version>4.9.3.0</spotbugs-maven-plugin.version>
+    <spotbugs-maven-plugin.version>${spotbugs.version}.0</spotbugs-maven-plugin.version>
 
     <!-- main dependencies -->
     <mapstruct.version>1.6.3</mapstruct.version>
