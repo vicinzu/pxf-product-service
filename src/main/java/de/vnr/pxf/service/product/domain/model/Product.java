@@ -1,7 +1,7 @@
 package de.vnr.pxf.service.product.domain.model;
 
-import de.vnr.pxf.service.base.Code;
-import de.vnr.pxf.service.product.domain.exception.CodeInUseException;
+import de.vnr.pxf.service.base.exception.CodeInUseException;
+import de.vnr.pxf.service.base.model.Code;
 import de.vnr.pxf.service.product.domain.store.ItemStore;
 import de.vnr.pxf.service.product.domain.store.ProductStore;
 import java.util.Collection;

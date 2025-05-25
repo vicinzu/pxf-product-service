@@ -1,4 +1,4 @@
-package de.vnr.pxf.service.base;
+package de.vnr.pxf.service.base.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -50,7 +50,20 @@ class OfferInMemoryPersistenceAdapterTest {
   }
 
   @Test
-  void exists() {
+  void exists_whenById() {
+    // pre-condition
+    final var offer = OfferGenerator.generateDefault();
+    assertThat(adapter.exists(offer.getId())).isFalse();
+
+    // arrange
+    adapter.insert(offer);
+
+    // act + assert
+    assertThat(adapter.exists(offer.getId())).isTrue();
+  }
+
+  @Test
+  void exists_whenByCode() {
     // pre-condition
     final var offer = OfferGenerator.generateDefault();
     assertThat(adapter.exists(offer.getCode())).isFalse();

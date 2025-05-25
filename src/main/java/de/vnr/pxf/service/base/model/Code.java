@@ -1,4 +1,4 @@
-package de.vnr.pxf.service.base;
+package de.vnr.pxf.service.base.model;
 
 import jakarta.validation.constraints.NotBlank;
 import java.io.Serializable;

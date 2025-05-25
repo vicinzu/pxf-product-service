@@ -1,7 +1,7 @@
 package de.vnr.pxf.service.product.domain.model.generator;
 
-import de.vnr.pxf.service.base.Code;
-import de.vnr.pxf.service.base.MoneyAmount;
+import de.vnr.pxf.service.base.model.Code;
+import de.vnr.pxf.service.base.model.MoneyAmount;
 import de.vnr.pxf.service.product.domain.model.Offer;
 import java.math.BigDecimal;
 import java.util.Currency;

@@ -7,6 +7,8 @@ import java.util.UUID;
 
 public interface OfferPort extends OfferStore {
 
+  boolean exists(UUID offerId);
+
   Optional<Offer> loadById(UUID offerId);
 
   void insert(Offer product);

@@ -5,8 +5,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import de.vnr.pxf.service.product.domain.exception.CodeInUseException;
-import de.vnr.pxf.service.product.domain.exception.ReferenceNotExistsException;
+import de.vnr.pxf.service.base.exception.CodeInUseException;
+import de.vnr.pxf.service.base.exception.ReferenceNotExistsException;
 import de.vnr.pxf.service.product.domain.model.generator.OfferGenerator;
 import de.vnr.pxf.service.product.domain.store.OfferStore;
 import de.vnr.pxf.service.product.domain.store.ProductStore;

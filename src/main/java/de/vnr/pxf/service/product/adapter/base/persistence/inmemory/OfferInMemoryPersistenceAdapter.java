@@ -1,6 +1,6 @@
 package de.vnr.pxf.service.product.adapter.base.persistence.inmemory;
 
-import de.vnr.pxf.service.base.Code;
+import de.vnr.pxf.service.base.model.Code;
 import de.vnr.pxf.service.product.application.port.resource.OfferPort;
 import de.vnr.pxf.service.product.domain.model.Offer;
 import java.util.HashMap;
@@ -24,6 +24,11 @@ public class OfferInMemoryPersistenceAdapter implements OfferPort {
   public void insert(Offer offer) {
     idStorage.put(offer.getId(), offer);
     codeStorage.put(offer.getCode(), offer);
+  }
+
+  @Override
+  public boolean exists(UUID offerId) {
+    return idStorage.containsKey(offerId);
   }
 
   @Override

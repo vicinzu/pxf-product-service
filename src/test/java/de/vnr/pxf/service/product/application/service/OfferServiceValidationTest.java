@@ -2,8 +2,8 @@ package de.vnr.pxf.service.product.application.service;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import de.vnr.pxf.service.base.Code;
-import de.vnr.pxf.service.base.MoneyAmount;
+import de.vnr.pxf.service.base.model.Code;
+import de.vnr.pxf.service.base.model.MoneyAmount;
 import de.vnr.pxf.service.product.application.port.api.usecase.ManageOfferUseCase;
 import de.vnr.pxf.service.product.application.port.resource.OfferPort;
 import de.vnr.pxf.service.product.application.port.resource.ProductPort;

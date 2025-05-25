@@ -13,6 +13,10 @@ public class OfferView {
 
   private final OfferPort offerPort;
 
+  public boolean existsById(UUID offerId) {
+    return offerPort.exists(offerId);
+  }
+
   public Offer getById(UUID offerId) throws NoSuchElementException {
     return offerPort.loadById(offerId)
         .orElseThrow(() -> new NoSuchElementException("Offer with id " + offerId + " not found"));

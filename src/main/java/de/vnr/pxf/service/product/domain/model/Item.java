@@ -1,6 +1,6 @@
 package de.vnr.pxf.service.product.domain.model;
 
-import de.vnr.pxf.service.base.Code;
+import de.vnr.pxf.service.base.model.Code;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

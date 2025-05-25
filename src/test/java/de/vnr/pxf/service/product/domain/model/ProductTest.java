@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import de.vnr.pxf.service.product.domain.exception.CodeInUseException;
+import de.vnr.pxf.service.base.exception.CodeInUseException;
 import de.vnr.pxf.service.product.domain.model.generator.ItemGenerator;
 import de.vnr.pxf.service.product.domain.model.generator.ProductGenerator;
 import de.vnr.pxf.service.product.domain.store.ItemStore;

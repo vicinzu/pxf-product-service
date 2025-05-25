@@ -1,6 +1,6 @@
 package de.vnr.pxf.service.product.adapter.base.persistence.inmemory;
 
-import de.vnr.pxf.service.base.Code;
+import de.vnr.pxf.service.base.model.Code;
 import de.vnr.pxf.service.product.application.port.resource.ItemPort;
 import de.vnr.pxf.service.product.domain.model.Item;
 import java.util.HashMap;

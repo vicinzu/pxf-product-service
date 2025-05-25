@@ -2,7 +2,7 @@ package de.vnr.pxf.service.product.application.service;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import de.vnr.pxf.service.base.Code;
+import de.vnr.pxf.service.base.model.Code;
 import de.vnr.pxf.service.product.application.port.api.usecase.ManageItemUseCase;
 import de.vnr.pxf.service.product.application.port.api.usecase.ManageItemUseCase.CreateItemCommand;
 import de.vnr.pxf.service.product.application.port.api.usecase.ManageItemUseCase.UpdateItemCommand;

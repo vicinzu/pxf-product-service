@@ -2,7 +2,7 @@ package de.vnr.pxf.service.product.application.service;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import de.vnr.pxf.service.base.Code;
+import de.vnr.pxf.service.base.model.Code;
 import de.vnr.pxf.service.product.application.port.api.usecase.ManageProductUseCase;
 import de.vnr.pxf.service.product.application.port.api.usecase.ManageProductUseCase.UpdateProductCommand;
 import de.vnr.pxf.service.product.application.port.api.view.ProductView;
@@ -21,7 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {ValidationTestConfiguration.class, ProductService.class})
 @MockitoBean(types = {ProductView.class, ProductPort.class})
 class ProductServiceValidationTest {
-  
+
   @Autowired
   private ManageProductUseCase manageUseCase;
 

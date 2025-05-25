@@ -1,7 +1,7 @@
 package de.vnr.pxf.service.product.application.port.api.usecase;
 
-import de.vnr.pxf.service.base.Code;
-import de.vnr.pxf.service.product.domain.exception.CodeInUseException;
+import de.vnr.pxf.service.base.exception.CodeInUseException;
+import de.vnr.pxf.service.base.model.Code;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -24,6 +24,26 @@ class OfferViewTest {
   private OfferPort offerPort;
 
   @Test
+  void existsById_whenProductExists_returnsTrue() {
+    // arrange
+    final var productId = OfferGenerator.DEFAULT_ID;
+    when(offerPort.exists(productId)).thenReturn(true);
+
+    // act + assert
+    assertThat(offerView.existsById(productId)).isTrue();
+  }
+
+  @Test
+  void existsById_whenProductDoesNotExist_returnsFalse() {
+    // arrange
+    final var offerId = OfferGenerator.DEFAULT_ID;
+    when(offerPort.exists(offerId)).thenReturn(false);
+
+    // act + assert
+    assertThat(offerView.existsById(offerId)).isFalse();
+  }
+
+  @Test
   void getById_whenOfferExists_returnsOffer() {
     // arrange
     final var offer = OfferGenerator.generateDefault();
