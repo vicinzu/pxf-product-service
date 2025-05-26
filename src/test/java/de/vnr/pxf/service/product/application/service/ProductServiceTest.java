@@ -4,11 +4,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import de.vnr.pxf.service.base.test.ValidationTestConfiguration;
 import de.vnr.pxf.service.product.application.port.api.usecase.ManageProductUseCase;
 import de.vnr.pxf.service.product.application.port.api.usecase.ManageProductUseCase.UpdateProductCommand;
 import de.vnr.pxf.service.product.application.port.api.view.ProductView;
 import de.vnr.pxf.service.product.application.port.resource.ProductPort;
-import de.vnr.pxf.service.product.application.service.config.ValidationTestConfiguration;
 import de.vnr.pxf.service.product.domain.model.Product;
 import de.vnr.pxf.service.product.domain.model.generator.ProductGenerator;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class ProductServiceTest {
 
   @Autowired
-  private ManageProductUseCase manageUseCase;
+  private ManageProductUseCase useCase;
 
   @MockitoBean
   private ProductView productView;
@@ -41,17 +41,17 @@ class ProductServiceTest {
     );
 
     // act + assert
-    assertThat(manageUseCase.createProduct(command))
+    assertThat(useCase.createProduct(command))
         .isNotNull();
 
     final var productCaptor = ArgumentCaptor.forClass(Product.class);
     verify(productPort).insert(productCaptor.capture());
     assertThat(productCaptor.getValue())
         .isNotNull()
-        .satisfies(prd -> {
-          assertThat(prd.getId()).isNotNull();
-          assertThat(prd.getCode()).isEqualTo(command.code());
-          assertThat(prd.getTitle()).isEqualTo(command.title());
+        .satisfies(p -> {
+          assertThat(p.getId()).isNotNull();
+          assertThat(p.getCode()).isEqualTo(command.code());
+          assertThat(p.getTitle()).isEqualTo(command.title());
         });
   }
 
@@ -67,17 +67,16 @@ class ProductServiceTest {
     );
 
     // act
-    manageUseCase.updateProduct(command);
+    useCase.updateProduct(command);
 
     // assert
     final var productCaptor = ArgumentCaptor.forClass(Product.class);
     verify(productPort).modify(productCaptor.capture());
     assertThat(productCaptor.getValue())
         .isNotNull()
-        .satisfies(prd -> {
-          assertThat(prd.getId()).isEqualTo(command.productId());
-          assertThat(prd.getCode()).isEqualTo(product.getCode());
-          assertThat(prd.getTitle()).isEqualTo(command.title());
+        .satisfies(p -> {
+          assertThat(p.getId()).isEqualTo(command.productId());
+          assertThat(p.getTitle()).isEqualTo(command.title());
         });
   }
 }

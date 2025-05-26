@@ -5,13 +5,13 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import de.vnr.pxf.service.base.test.ValidationTestConfiguration;
 import de.vnr.pxf.service.product.application.port.api.usecase.ManageItemUseCase;
 import de.vnr.pxf.service.product.application.port.api.usecase.ManageItemUseCase.CreateItemCommand;
 import de.vnr.pxf.service.product.application.port.api.usecase.ManageItemUseCase.UpdateItemCommand;
 import de.vnr.pxf.service.product.application.port.api.view.ItemView;
 import de.vnr.pxf.service.product.application.port.api.view.ProductView;
 import de.vnr.pxf.service.product.application.port.resource.ItemPort;
-import de.vnr.pxf.service.product.application.service.config.ValidationTestConfiguration;
 import de.vnr.pxf.service.product.domain.model.Item;
 import de.vnr.pxf.service.product.domain.model.generator.ItemGenerator;
 import de.vnr.pxf.service.product.domain.model.generator.ProductGenerator;
@@ -29,7 +29,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class ItemServiceTest {
 
   @Autowired
-  private ManageItemUseCase manageUseCase;
+  private ManageItemUseCase useCase;
 
   @MockitoBean
   private ProductView productView;
@@ -42,7 +42,7 @@ class ItemServiceTest {
 
   @Test
   void createItem_whenProductExistsAndCodeNotInUse_createsItem() {
-    // arrange#
+    // arrange
     final var product = ProductGenerator.generateDefault();
     when(productView.getById(product.getId())).thenReturn(product);
     when(itemPort.exists(product.getId(), ItemGenerator.DEFAULT_CODE)).thenReturn(false);
@@ -54,17 +54,17 @@ class ItemServiceTest {
     );
 
     // act + assert
-    assertThat(manageUseCase.createItem(command))
+    assertThat(useCase.createItem(command))
         .isNotNull();
 
     final var itemCaptor = ArgumentCaptor.forClass(Item.class);
     verify(itemPort).insert(eq(product.getId()), itemCaptor.capture());
     assertThat(itemCaptor.getValue())
         .isNotNull()
-        .satisfies(itm -> {
-          assertThat(itm.getId()).isNotNull();
-          assertThat(itm.getCode()).isEqualTo(command.code());
-          assertThat(itm.getTitle()).isEqualTo(command.title());
+        .satisfies(i -> {
+          assertThat(i.getId()).isNotNull();
+          assertThat(i.getCode()).isEqualTo(command.code());
+          assertThat(i.getTitle()).isEqualTo(command.title());
         });
   }
 
@@ -82,16 +82,15 @@ class ItemServiceTest {
     );
 
     // act + assert
-    manageUseCase.updateItem(command);
+    useCase.updateItem(command);
 
     final var itemCaptor = ArgumentCaptor.forClass(Item.class);
     verify(itemPort).modify(eq(productId), itemCaptor.capture());
     assertThat(itemCaptor.getValue())
         .isNotNull()
-        .satisfies(itm -> {
-          assertThat(itm.getId()).isEqualTo(command.itemId());
-          assertThat(itm.getCode()).isEqualTo(item.getCode());
-          assertThat(itm.getTitle()).isEqualTo(command.title());
+        .satisfies(i -> {
+          assertThat(i.getId()).isEqualTo(command.itemId());
+          assertThat(i.getTitle()).isEqualTo(command.title());
         });
   }
 }

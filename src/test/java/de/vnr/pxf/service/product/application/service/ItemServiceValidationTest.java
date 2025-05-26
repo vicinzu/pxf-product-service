@@ -3,13 +3,13 @@ package de.vnr.pxf.service.product.application.service;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import de.vnr.pxf.service.base.model.Code;
+import de.vnr.pxf.service.base.test.ValidationTestConfiguration;
 import de.vnr.pxf.service.product.application.port.api.usecase.ManageItemUseCase;
 import de.vnr.pxf.service.product.application.port.api.usecase.ManageItemUseCase.CreateItemCommand;
 import de.vnr.pxf.service.product.application.port.api.usecase.ManageItemUseCase.UpdateItemCommand;
 import de.vnr.pxf.service.product.application.port.api.view.ItemView;
 import de.vnr.pxf.service.product.application.port.api.view.ProductView;
 import de.vnr.pxf.service.product.application.port.resource.ItemPort;
-import de.vnr.pxf.service.product.application.service.config.ValidationTestConfiguration;
 import de.vnr.pxf.service.product.domain.model.generator.ItemGenerator;
 import jakarta.validation.ConstraintViolationException;
 import java.util.UUID;
@@ -26,10 +26,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class ItemServiceValidationTest {
 
   @Autowired
-  private ManageItemUseCase manageUseCase;
+  private ManageItemUseCase useCase;
 
   @Test
-  void createItem_whenMissingProductId_throwsException() {
+  void createItem_whenMissingProductId_throwsConstraintViolationException() {
     // arrange
     final var command = new CreateItemCommand(
         null,
@@ -38,12 +38,12 @@ class ItemServiceValidationTest {
     );
 
     // act + assert
-    assertThatThrownBy(() -> manageUseCase.createItem(command))
+    assertThatThrownBy(() -> useCase.createItem(command))
         .isInstanceOf(ConstraintViolationException.class);
   }
 
   @Test
-  void createItem_whenMissingCode_throwsException() {
+  void createItem_whenMissingCode_throwsConstraintViolationException() {
     // arrange
     final var command = new CreateItemCommand(
         UUID.randomUUID(),
@@ -52,12 +52,12 @@ class ItemServiceValidationTest {
     );
 
     // act + assert
-    assertThatThrownBy(() -> manageUseCase.createItem(command))
+    assertThatThrownBy(() -> useCase.createItem(command))
         .isInstanceOf(ConstraintViolationException.class);
   }
 
   @Test
-  void createItem_whenEmptyCode_throwsException() {
+  void createItem_whenEmptyCode_throwsConstraintViolationException() {
     // arrange
     final var command = new CreateItemCommand(
         UUID.randomUUID(),
@@ -66,12 +66,12 @@ class ItemServiceValidationTest {
     );
 
     // act + assert
-    assertThatThrownBy(() -> manageUseCase.createItem(command))
+    assertThatThrownBy(() -> useCase.createItem(command))
         .isInstanceOf(ConstraintViolationException.class);
   }
 
   @Test
-  void createItem_whenMissingTitle_throwsException() {
+  void createItem_whenMissingTitle_throwsConstraintViolationException() {
     // arrange
     final var command = new CreateItemCommand(
         UUID.randomUUID(),
@@ -80,12 +80,12 @@ class ItemServiceValidationTest {
     );
 
     // act + assert
-    assertThatThrownBy(() -> manageUseCase.createItem(command))
+    assertThatThrownBy(() -> useCase.createItem(command))
         .isInstanceOf(ConstraintViolationException.class);
   }
 
   @Test
-  void createItem_whenBlankTitle_throwsException() {
+  void createItem_whenBlankTitle_throwsConstraintViolationException() {
     // arrange
     final var command = new CreateItemCommand(
         UUID.randomUUID(),
@@ -94,12 +94,12 @@ class ItemServiceValidationTest {
     );
 
     // act + assert
-    assertThatThrownBy(() -> manageUseCase.createItem(command))
+    assertThatThrownBy(() -> useCase.createItem(command))
         .isInstanceOf(ConstraintViolationException.class);
   }
 
   @Test
-  void updateItem_whenMissingProductId_throwsException() {
+  void updateItem_whenMissingProductId_throwsConstraintViolationException() {
     // arrange
     final var command = new UpdateItemCommand(
         null,
@@ -108,12 +108,12 @@ class ItemServiceValidationTest {
     );
 
     // act + assert
-    assertThatThrownBy(() -> manageUseCase.updateItem(command))
+    assertThatThrownBy(() -> useCase.updateItem(command))
         .isInstanceOf(ConstraintViolationException.class);
   }
 
   @Test
-  void updateItem_whenMissingItemId_throwsException() {
+  void updateItem_whenMissingItemId_throwsConstraintViolationException() {
     // arrange
     final var command = new UpdateItemCommand(
         UUID.randomUUID(),
@@ -122,12 +122,12 @@ class ItemServiceValidationTest {
     );
 
     // act + assert
-    assertThatThrownBy(() -> manageUseCase.updateItem(command))
+    assertThatThrownBy(() -> useCase.updateItem(command))
         .isInstanceOf(ConstraintViolationException.class);
   }
 
   @Test
-  void updateItem_whenMissingTitle_throwsException() {
+  void updateItem_whenMissingTitle_throwsConstraintViolationException() {
     // arrange
     final var command = new UpdateItemCommand(
         UUID.randomUUID(),
@@ -136,12 +136,12 @@ class ItemServiceValidationTest {
     );
 
     // act + assert
-    assertThatThrownBy(() -> manageUseCase.updateItem(command))
+    assertThatThrownBy(() -> useCase.updateItem(command))
         .isInstanceOf(ConstraintViolationException.class);
   }
 
   @Test
-  void updateItem_whenBlankTitle_throwsException() {
+  void updateItem_whenBlankTitle_throwsConstraintViolationException() {
     // arrange
     final var command = new UpdateItemCommand(
         UUID.randomUUID(),
@@ -150,7 +150,7 @@ class ItemServiceValidationTest {
     );
 
     // act + assert
-    assertThatThrownBy(() -> manageUseCase.updateItem(command))
+    assertThatThrownBy(() -> useCase.updateItem(command))
         .isInstanceOf(ConstraintViolationException.class);
   }
 }

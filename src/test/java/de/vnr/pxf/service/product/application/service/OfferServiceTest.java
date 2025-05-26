@@ -4,10 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import de.vnr.pxf.service.base.test.ValidationTestConfiguration;
 import de.vnr.pxf.service.product.application.port.api.usecase.ManageOfferUseCase;
 import de.vnr.pxf.service.product.application.port.resource.OfferPort;
 import de.vnr.pxf.service.product.application.port.resource.ProductPort;
-import de.vnr.pxf.service.product.application.service.config.ValidationTestConfiguration;
 import de.vnr.pxf.service.product.domain.model.Offer;
 import de.vnr.pxf.service.product.domain.model.generator.OfferGenerator;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class OfferServiceTest {
 
   @Autowired
-  private ManageOfferUseCase manageOfferUseCase;
+  private ManageOfferUseCase useCase;
 
   @MockitoBean
   private ProductPort productPort;
@@ -43,18 +43,18 @@ class OfferServiceTest {
     when(productPort.exists(command.productId())).thenReturn(true);
 
     // act + assert
-    assertThat(manageOfferUseCase.createOffer(command))
+    assertThat(useCase.createOffer(command))
         .isNotNull();
 
     final var offerCaptor = ArgumentCaptor.forClass(Offer.class);
     verify(offerPort).insert(offerCaptor.capture());
     assertThat(offerCaptor.getValue())
         .isNotNull()
-        .satisfies(offer -> {
-          assertThat(offer.getId()).isNotNull();
-          assertThat(offer.getProductId()).isEqualTo(command.productId());
-          assertThat(offer.getCode()).isEqualTo(command.code());
-          assertThat(offer.getPrice()).isEqualTo(command.price());
+        .satisfies(o -> {
+          assertThat(o.getId()).isNotNull();
+          assertThat(o.getProductId()).isEqualTo(command.productId());
+          assertThat(o.getCode()).isEqualTo(command.code());
+          assertThat(o.getPrice()).isEqualTo(command.price());
         });
   }
 }

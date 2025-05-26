@@ -41,7 +41,7 @@ class ProductTest {
   }
 
   @Test
-  void construct_whenCodeInUse_throwsException() {
+  void construct_whenCodeInUse_throwsCodeInUseException() {
     // arrange
     final var code = ProductGenerator.DEFAULT_CODE;
     final var title = ProductGenerator.DEFAULT_TITLE;
@@ -108,7 +108,7 @@ class ProductTest {
   }
 
   @Test
-  void createItem_whenCodeAlreadyExists_throwsException() {
+  void createItem_whenCodeAlreadyExists_throwsCodeInUseException() {
     // arrange
     final var itemStorage = mock(ItemStore.class);
     final var itemCode = ItemGenerator.DEFAULT_CODE;

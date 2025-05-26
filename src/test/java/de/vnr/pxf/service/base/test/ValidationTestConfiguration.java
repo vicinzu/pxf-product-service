@@ -1,4 +1,4 @@
-package de.vnr.pxf.service.product.application.service.config;
+package de.vnr.pxf.service.base.test;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;

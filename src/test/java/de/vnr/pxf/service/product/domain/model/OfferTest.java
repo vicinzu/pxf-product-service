@@ -43,7 +43,7 @@ class OfferTest {
   }
 
   @Test
-  void construct_whenCodeInUse_throwsException() {
+  void construct_whenCodeInUse_throwsCodeInUseException() {
     // arrange
     final var code = OfferGenerator.DEFAULT_CODE;
     final var productId = OfferGenerator.DEFAULT_PRODUCT_ID;
@@ -64,7 +64,7 @@ class OfferTest {
   }
 
   @Test
-  void construct_whenProductNotExists_throwsException() {
+  void construct_whenProductNotExists_throwsReferenceNotExistsException() {
     // arrange
     final var code = OfferGenerator.DEFAULT_CODE;
     final var productId = OfferGenerator.DEFAULT_PRODUCT_ID;

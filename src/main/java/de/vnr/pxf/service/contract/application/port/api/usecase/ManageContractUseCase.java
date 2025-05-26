@@ -11,6 +11,7 @@ public interface ManageContractUseCase {
   UUID createContract(@Valid CreateContractCommand command);
 
   record CreateContractCommand(
+      @NotNull
       UUID orderId
   ) {
 

@@ -86,7 +86,7 @@ class ContractTest {
   }
 
   @Test
-  void activate_whenContractIsNotPending_throwsException() {
+  void activate_whenContractIsNotPending_throwsOperationNotPossibleException() {
     // pre-condition
     contract = ContractGenerator.generateDefault(ContractState.ACTIVE);
     assertThat(contract.getState()).isEqualTo(ContractState.ACTIVE);
@@ -118,7 +118,7 @@ class ContractTest {
   }
 
   @Test
-  void complete_whenContractIsNotActive_throwsException() {
+  void complete_whenContractIsNotActive_throwsOperationNotPossibleException() {
     // pre-condition
     contract = ContractGenerator.generateDefault(ContractState.PENDING);
     assertThat(contract.getState()).isEqualTo(ContractState.PENDING);

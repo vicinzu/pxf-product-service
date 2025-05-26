@@ -3,11 +3,11 @@ package de.vnr.pxf.service.product.application.service;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import de.vnr.pxf.service.base.model.Code;
+import de.vnr.pxf.service.base.test.ValidationTestConfiguration;
 import de.vnr.pxf.service.product.application.port.api.usecase.ManageProductUseCase;
 import de.vnr.pxf.service.product.application.port.api.usecase.ManageProductUseCase.UpdateProductCommand;
 import de.vnr.pxf.service.product.application.port.api.view.ProductView;
 import de.vnr.pxf.service.product.application.port.resource.ProductPort;
-import de.vnr.pxf.service.product.application.service.config.ValidationTestConfiguration;
 import de.vnr.pxf.service.product.domain.model.generator.ProductGenerator;
 import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
@@ -23,10 +23,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class ProductServiceValidationTest {
 
   @Autowired
-  private ManageProductUseCase manageUseCase;
+  private ManageProductUseCase useCase;
 
   @Test
-  void createProduct_whenMissingCode_throwsException() {
+  void createProduct_whenMissingCode_throwsConstraintViolationException() {
     // arrange
     final var command = new ManageProductUseCase.CreateProductCommand(
         null,
@@ -34,12 +34,12 @@ class ProductServiceValidationTest {
     );
 
     // act + assert
-    assertThatThrownBy(() -> manageUseCase.createProduct(command))
+    assertThatThrownBy(() -> useCase.createProduct(command))
         .isInstanceOf(ConstraintViolationException.class);
   }
 
   @Test
-  void createProduct_whenEmptyCode_throwsException() {
+  void createProduct_whenEmptyCode_throwsConstraintViolationException() {
     // arrange
     final var command = new ManageProductUseCase.CreateProductCommand(
         Code.NONE,
@@ -47,12 +47,12 @@ class ProductServiceValidationTest {
     );
 
     // act + assert
-    assertThatThrownBy(() -> manageUseCase.createProduct(command))
+    assertThatThrownBy(() -> useCase.createProduct(command))
         .isInstanceOf(ConstraintViolationException.class);
   }
 
   @Test
-  void createProduct_whenMissingTitle_throwsException() {
+  void createProduct_whenMissingTitle_throwsConstraintViolationException() {
     // arrange
     final var command = new ManageProductUseCase.CreateProductCommand(
         ProductGenerator.DEFAULT_CODE,
@@ -60,12 +60,12 @@ class ProductServiceValidationTest {
     );
 
     // act + assert
-    assertThatThrownBy(() -> manageUseCase.createProduct(command))
+    assertThatThrownBy(() -> useCase.createProduct(command))
         .isInstanceOf(ConstraintViolationException.class);
   }
 
   @Test
-  void createProduct_whenBlankTitle_throwsException() {
+  void createProduct_whenBlankTitle_throwsConstraintViolationException() {
     // arrange
     final var command = new ManageProductUseCase.CreateProductCommand(
         ProductGenerator.DEFAULT_CODE,
@@ -73,12 +73,12 @@ class ProductServiceValidationTest {
     );
 
     // act + assert
-    assertThatThrownBy(() -> manageUseCase.createProduct(command))
+    assertThatThrownBy(() -> useCase.createProduct(command))
         .isInstanceOf(ConstraintViolationException.class);
   }
 
   @Test
-  void updateProduct_whenMissingProductId_throwsException() {
+  void updateProduct_whenMissingProductId_throwsConstraintViolationException() {
     // arrange
     final var command = new UpdateProductCommand(
         null,
@@ -86,12 +86,12 @@ class ProductServiceValidationTest {
     );
 
     // act + assert
-    assertThatThrownBy(() -> manageUseCase.updateProduct(command))
+    assertThatThrownBy(() -> useCase.updateProduct(command))
         .isInstanceOf(ConstraintViolationException.class);
   }
 
   @Test
-  void updateProduct_whenMissingTitle_throwsException() {
+  void updateProduct_whenMissingTitle_throwsConstraintViolationException() {
     // arrange
     final var command = new UpdateProductCommand(
         ProductGenerator.DEFAULT_ID,
@@ -99,12 +99,12 @@ class ProductServiceValidationTest {
     );
 
     // act + assert
-    assertThatThrownBy(() -> manageUseCase.updateProduct(command))
+    assertThatThrownBy(() -> useCase.updateProduct(command))
         .isInstanceOf(ConstraintViolationException.class);
   }
 
   @Test
-  void updateProduct_whenBlankTitle_throwsException() {
+  void updateProduct_whenBlankTitle_throwsConstraintViolationException() {
     // arrange
     final var command = new UpdateProductCommand(
         ProductGenerator.DEFAULT_ID,
@@ -112,7 +112,7 @@ class ProductServiceValidationTest {
     );
 
     // act + assert
-    assertThatThrownBy(() -> manageUseCase.updateProduct(command))
+    assertThatThrownBy(() -> useCase.updateProduct(command))
         .isInstanceOf(ConstraintViolationException.class);
   }
 }

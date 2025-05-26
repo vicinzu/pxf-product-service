@@ -1,9 +1,11 @@
 package de.vnr.pxf.service.contract.domain.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import de.vnr.pxf.service.base.exception.ReferenceNotExistsException;
 import de.vnr.pxf.service.contract.domain.model.generator.OrderGenerator;
 import de.vnr.pxf.service.contract.domain.store.OfferStore;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,7 +39,7 @@ class OrderTest {
   }
 
   @Test
-  void construct_whenWhenProductNotExists_throwsException() {
+  void construct_whenWhenProductNotExists_throwsReferenceNotExistsException() {
     // arrange
     final var customerId = OrderGenerator.DEFAULT_CUSTOMER_ID;
     final var offerId = OrderGenerator.DEFAULT_OFFER_ID;
@@ -46,13 +48,10 @@ class OrderTest {
     when(offerStorage.exists(offerId)).thenReturn(false);
 
     // act + assert
-    assertThat(new Order(offerStorage, customerId, offerId))
-        .isNotNull()
-        .satisfies(order -> {
-          assertThat(order.getId()).isNotNull();
-          assertThat(order.getCustomerId()).isEqualTo(customerId);
-          assertThat(order.getOfferId()).isEqualTo(offerId);
-        });
+    assertThatThrownBy(() -> new Order(offerStorage, customerId, offerId))
+        .isInstanceOfSatisfying(ReferenceNotExistsException.class, e ->
+            assertThat(e.getReferenceId()).isEqualTo(offerId)
+        );
   }
 
   @Test
