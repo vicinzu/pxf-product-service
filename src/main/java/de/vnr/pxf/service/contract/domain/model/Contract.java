@@ -6,12 +6,14 @@ import de.vnr.pxf.service.contract.domain.model.value.ContractTimeline;
 import java.time.ZoneId;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@EqualsAndHashCode
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class Contract {
 
   private final UUID id;

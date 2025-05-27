@@ -8,7 +8,6 @@ import de.vnr.pxf.service.product.application.port.resource.ItemPort;
 import de.vnr.pxf.service.product.domain.model.generator.ItemGenerator;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,12 +26,11 @@ class ItemViewTest {
   @Test
   void getById_whenItemExists_returnsItem() {
     // arrange
-    final var productId = UUID.randomUUID();
     final var item = ItemGenerator.generateDefault();
-    when(itemPort.loadById(productId, item.getId())).thenReturn(Optional.of(item));
+    when(itemPort.loadById(item.getId())).thenReturn(Optional.of(item));
 
     // act + assert
-    assertThat(itemView.getById(productId, item.getId()))
+    assertThat(itemView.getById(item.getId()))
         .isNotNull()
         .isEqualTo(item);
   }
@@ -40,12 +38,11 @@ class ItemViewTest {
   @Test
   void getById_whenItemDoesNotExist_throwsNoSuchElementException() {
     // arrange
-    final var productId = UUID.randomUUID();
     final var itemId = ItemGenerator.DEFAULT_ID;
-    when(itemPort.loadById(productId, itemId)).thenReturn(Optional.empty());
+    when(itemPort.loadById(itemId)).thenReturn(Optional.empty());
 
     // act + assert
-    assertThatThrownBy(() -> itemView.getById(productId, itemId))
+    assertThatThrownBy(() -> itemView.getById(itemId))
         .isInstanceOf(NoSuchElementException.class);
   }
 }

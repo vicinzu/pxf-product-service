@@ -10,7 +10,6 @@ import de.vnr.pxf.service.product.domain.model.generator.ItemGenerator;
 import de.vnr.pxf.service.product.domain.model.generator.ProductGenerator;
 import de.vnr.pxf.service.product.domain.store.ItemStore;
 import de.vnr.pxf.service.product.domain.store.ProductStore;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -113,7 +112,7 @@ class ProductTest {
     final var itemStorage = mock(ItemStore.class);
     final var itemCode = ItemGenerator.DEFAULT_CODE;
     final var itemTitle = ItemGenerator.DEFAULT_TITLE;
-    when(itemStorage.exists(product.getId(), itemCode)).thenReturn(true);
+    when(itemStorage.exists(itemCode)).thenReturn(true);
 
     // act + assert
     assertThatThrownBy(() -> product.createItem(itemStorage, itemCode, itemTitle))
@@ -129,7 +128,7 @@ class ProductTest {
     final var itemStorage = mock(ItemStore.class);
     final var itemCode = ItemGenerator.DEFAULT_CODE;
     final var itemTitle = ItemGenerator.DEFAULT_TITLE;
-    when(itemStorage.exists(product.getId(), itemCode)).thenReturn(false);
+    when(itemStorage.exists(itemCode)).thenReturn(false);
 
     // act + assert
     assertThat(product.createItem(itemStorage, itemCode, itemTitle))
@@ -138,38 +137,5 @@ class ProductTest {
           assertThat(item.getCode()).isEqualTo(itemCode);
           assertThat(item.getTitle()).isEqualTo(itemTitle);
         });
-  }
-
-  @Test
-  void getItems() {
-    // pre-condition
-    final var items = List.of(
-        ItemGenerator.generateRandom(),
-        ItemGenerator.generateRandom()
-    );
-    product.setItems(items);
-
-    // arrange
-    assertThat(product.getItems())
-        .hasSize(2)
-        .containsExactlyInAnyOrderElementsOf(items);
-  }
-
-  @Test
-  void setItems() {
-    // pre-condition
-    final var items = List.of(
-        ItemGenerator.generateRandom(),
-        ItemGenerator.generateRandom()
-    );
-    assertThat(product.getItems()).isEmpty();
-
-    // act
-    product.setItems(items);
-
-    // assert
-    assertThat(product.getItems())
-        .hasSize(2)
-        .containsExactlyInAnyOrderElementsOf(items);
   }
 }

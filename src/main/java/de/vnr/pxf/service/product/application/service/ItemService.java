@@ -23,7 +23,7 @@ public class ItemService implements ManageItemUseCase {
 
     // act
     final var item = product.createItem(itemPort, command.code(), command.title());
-    itemPort.insert(product.getId(), item);
+    itemPort.insert(item);
 
     return item.getId();
   }
@@ -31,10 +31,10 @@ public class ItemService implements ManageItemUseCase {
   @Override
   public void updateItem(UpdateItemCommand command) {
     // arrange
-    final var item = itemView.getById(command.productId(), command.itemId());
+    final var item = itemView.getById(command.itemId());
 
     // act
     item.setTitle(command.title());
-    itemPort.modify(command.productId(), item);
+    itemPort.modify(item);
   }
 }

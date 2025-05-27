@@ -7,9 +7,9 @@ import java.util.UUID;
 
 public interface ItemPort extends ItemStore {
 
-  Optional<Item> loadById(UUID productId, UUID itemId);
+  Optional<Item> loadById(UUID itemId);
 
-  void insert(UUID productId, Item product);
+  void insert(Item product);
 
-  void modify(UUID productId, Item product);
+  void modify(Item product);
 }

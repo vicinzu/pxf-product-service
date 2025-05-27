@@ -1,9 +1,8 @@
 package de.vnr.pxf.service.product.domain.store;
 
 import de.vnr.pxf.service.base.model.Code;
-import java.util.UUID;
 
 public interface ItemStore {
 
-  boolean exists(UUID productId, Code code);
+  boolean exists(Code code);
 }

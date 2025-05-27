@@ -3,11 +3,13 @@ package de.vnr.pxf.service.contract.domain.model;
 import de.vnr.pxf.service.base.exception.ReferenceNotExistsException;
 import de.vnr.pxf.service.contract.domain.store.OfferStore;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@EqualsAndHashCode
+@AllArgsConstructor
 public class Order {
 
   private final UUID id;

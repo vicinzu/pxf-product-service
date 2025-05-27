@@ -1,7 +1,6 @@
 package de.vnr.pxf.service.product.application.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -44,13 +43,16 @@ class ItemServiceTest {
   void createItem_whenProductExistsAndCodeNotInUse_createsItem() {
     // arrange
     final var product = ProductGenerator.generateDefault();
+    final var code = ItemGenerator.DEFAULT_CODE;
+    final var title = ItemGenerator.DEFAULT_TITLE;
+
     when(productView.getById(product.getId())).thenReturn(product);
-    when(itemPort.exists(product.getId(), ItemGenerator.DEFAULT_CODE)).thenReturn(false);
+    when(itemPort.exists(code)).thenReturn(false);
 
     final var command = new CreateItemCommand(
         product.getId(),
-        ItemGenerator.DEFAULT_CODE,
-        ItemGenerator.DEFAULT_TITLE
+        code,
+        title
     );
 
     // act + assert
@@ -58,7 +60,7 @@ class ItemServiceTest {
         .isNotNull();
 
     final var itemCaptor = ArgumentCaptor.forClass(Item.class);
-    verify(itemPort).insert(eq(product.getId()), itemCaptor.capture());
+    verify(itemPort).insert(itemCaptor.capture());
     assertThat(itemCaptor.getValue())
         .isNotNull()
         .satisfies(i -> {
@@ -73,7 +75,7 @@ class ItemServiceTest {
     // arrange
     final var productId = UUID.randomUUID();
     final var item = ItemGenerator.generateDefault();
-    when(itemView.getById(productId, item.getId())).thenReturn(item);
+    when(itemView.getById(item.getId())).thenReturn(item);
 
     final var command = new UpdateItemCommand(
         productId,
@@ -85,7 +87,7 @@ class ItemServiceTest {
     useCase.updateItem(command);
 
     final var itemCaptor = ArgumentCaptor.forClass(Item.class);
-    verify(itemPort).modify(eq(productId), itemCaptor.capture());
+    verify(itemPort).modify(itemCaptor.capture());
     assertThat(itemCaptor.getValue())
         .isNotNull()
         .satisfies(i -> {

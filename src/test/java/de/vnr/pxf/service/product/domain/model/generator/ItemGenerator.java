@@ -7,6 +7,7 @@ import java.util.UUID;
 public class ItemGenerator {
 
   public static final UUID DEFAULT_ID = UUID.fromString("00000000-0000-0000-0000-000000000002");
+  public static final UUID DEFAULT_PRODUCT_ID = UUID.fromString("00000000-0000-0000-0000-000000000001");
   public static final Code DEFAULT_CODE = Code.of("ITEM");
   public static final String DEFAULT_TITLE = "itemTitle";
 
@@ -21,6 +22,7 @@ public class ItemGenerator {
   private static Item generateWithId(UUID itemId) {
     final var item = new Item(
         itemId,
+        DEFAULT_PRODUCT_ID,
         DEFAULT_CODE
     );
     item.setTitle(DEFAULT_TITLE);

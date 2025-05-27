@@ -8,22 +8,21 @@ import de.vnr.pxf.service.base.model.MoneyAmount;
 import de.vnr.pxf.service.product.domain.store.OfferStore;
 import de.vnr.pxf.service.product.domain.store.ProductStore;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+@Getter
+@EqualsAndHashCode
+@AllArgsConstructor
 public class Offer {
 
-  @Getter
   private final UUID id;
 
-  @Getter
   private final Code code;
 
-  @Getter
   private final UUID productId;
 
-  @Getter
   private final MoneyAmount price;
 
   public Offer(OfferStore offerStore, ProductStore productStore, Code code, UUID productId, MoneyAmount price)

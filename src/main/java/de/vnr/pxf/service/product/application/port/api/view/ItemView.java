@@ -13,8 +13,8 @@ public class ItemView {
 
   private final ItemPort itemPort;
 
-  public Item getById(UUID productId, UUID itemId) throws NoSuchElementException {
-    return itemPort.loadById(productId, itemId)
+  public Item getById(UUID itemId) throws NoSuchElementException {
+    return itemPort.loadById(itemId)
         .orElseThrow(() -> new NoSuchElementException("Item with id " + itemId + " not found"));
   }
 }

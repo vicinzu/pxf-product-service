@@ -3,7 +3,6 @@ package de.vnr.pxf.service.product.adapter.base.persistence.inmemory;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import de.vnr.pxf.service.product.domain.model.generator.ItemGenerator;
-import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,15 +19,14 @@ class ItemInMemoryPersistenceAdapterTest {
   @Test
   void loadById() {
     // pre-condition
-    final var productId = UUID.randomUUID();
     final var item = ItemGenerator.generateDefault();
-    assertThat(adapter.loadById(productId, item.getId())).isEmpty();
+    assertThat(adapter.loadById(item.getId())).isEmpty();
 
     // arrange
-    adapter.insert(productId, item);
+    adapter.insert(item);
 
     // act + assert
-    assertThat(adapter.loadById(productId, item.getId()))
+    assertThat(adapter.loadById(item.getId()))
         .isPresent()
         .get()
         .isEqualTo(item);
@@ -37,15 +35,14 @@ class ItemInMemoryPersistenceAdapterTest {
   @Test
   void insert() {
     // pre-condition
-    final var productId = UUID.randomUUID();
     final var item = ItemGenerator.generateDefault();
-    assertThat(adapter.loadById(productId, item.getId())).isEmpty();
+    assertThat(adapter.loadById(item.getId())).isEmpty();
 
     // act
-    adapter.insert(productId, item);
+    adapter.insert(item);
 
     // assert
-    assertThat(adapter.loadById(productId, item.getId()))
+    assertThat(adapter.loadById(item.getId()))
         .isNotNull()
         .isPresent()
         .get()
@@ -55,19 +52,18 @@ class ItemInMemoryPersistenceAdapterTest {
   @Test
   void modify() {
     // pre-condition
-    final var productId = UUID.randomUUID();
     final var item = ItemGenerator.generateDefault();
-    assertThat(adapter.loadById(productId, item.getId())).isEmpty();
-    adapter.insert(productId, item);
-    assertThat(adapter.loadById(productId, item.getId())).isPresent();
+    assertThat(adapter.loadById(item.getId())).isEmpty();
+    adapter.insert(item);
+    assertThat(adapter.loadById(item.getId())).isPresent();
 
     // act
     final var newTitle = "newTitle";
     item.setTitle(newTitle);
-    adapter.modify(productId, item);
+    adapter.modify(item);
 
     // assert
-    assertThat(adapter.loadById(productId, item.getId()))
+    assertThat(adapter.loadById(item.getId()))
         .isPresent()
         .get()
         .satisfies(itm -> {
@@ -80,14 +76,13 @@ class ItemInMemoryPersistenceAdapterTest {
   @Test
   void exists() {
     // pre-condition
-    final var productId = UUID.randomUUID();
     final var item = ItemGenerator.generateDefault();
-    assertThat(adapter.exists(productId, item.getCode())).isFalse();
+    assertThat(adapter.exists(item.getCode())).isFalse();
 
     // arrange
-    adapter.insert(productId, item);
+    adapter.insert(item);
 
     // act + assert
-    assertThat(adapter.exists(productId, item.getCode())).isTrue();
+    assertThat(adapter.exists(item.getCode())).isTrue();
   }
 }
